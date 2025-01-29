@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="id">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
+        <title>Aplikasi Prediksi Diabetes</title>
+    </head>
+    <body class="flex flex-col justify-center items-center p-8 min-h-screen bg-gradient-to-r from-blue-600 to-purple-500 text-gray-900">
+        <main class="bg-white p-10 rounded-xl shadow-lg w-full max-w-2xl">
+            <h1 class="text-3xl font-bold text-center text-blue-600 mb-6">Prediksi Risiko Diabetes</h1>
+            
+            <form action="{{ url_for('predict') }}" method="post" class="space-y-4">
+                <div>
+                    <label for="jenis_kelamin" class="font-medium">Jenis Kelamin:</label>
+                    <select name="jenis_kelamin" id="jenis_kelamin" class="w-full p-3 bg-gray-100 rounded-lg">
+                        <option value="Laki-laki">Laki-laki</option>
+                        <option value="Perempuan">Perempuan</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label for="umur" class="font-medium">Umur:</label>
+                    <input type="number" name="umur" id="umur" placeholder="Masukkan umur (0 - 120)" min="0" max="120" step="1" required class="w-full p-3 bg-gray-100 rounded-lg" />
+                </div>
+                
+                <div>
+                    <label for="hipertensi" class="font-medium">Memiliki Penyakit Hipertensi?</label>
+                    <select name="hipertensi" id="hipertensi" class="w-full p-3 bg-gray-100 rounded-lg">
+                        <option value="Ya">Ya</option>
+                        <option value="Tidak">Tidak</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label for="jantung" class="font-medium">Memiliki Penyakit Jantung?</label>
+                    <select name="jantung" id="jantung" class="w-full p-3 bg-gray-100 rounded-lg">
+                        <option value="Ya">Ya</option>
+                        <option value="Tidak">Tidak</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label for="merokok" class="font-medium">Riwayat Merokok:</label>
+                    <select name="merokok" id="merokok" class="w-full p-3 bg-gray-100 rounded-lg">
+                        <option value="tidak pernah">Tidak Pernah</option>
+                        <option value="saat ini">Saat Ini</option>
+                        <option value="mantan perokok">Mantan Perokok</option>
+                        <option value="pernah merokok">Pernah Merokok</option>
+                        <option value="tidak saat ini">Tidak Saat Ini</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label for="bmi" class="font-medium">BMI:</label>
+                    <input type="number" name="bmi" id="bmi" placeholder="Masukkan BMI (10 - 96)" min="10" max="96" step="0.01" required class="w-full p-3 bg-gray-100 rounded-lg" />
+                </div>
+                
+                <div>
+                    <label for="hbA1c" class="font-medium">Level HbA1c:</label>
+                    <input type="number" name="hbA1c" id="hbA1c" placeholder="Masukkan level HbA1c (3 - 10)" min="3" max="10" step="0.1" required class="w-full p-3 bg-gray-100 rounded-lg" />
+                </div>
+                
+                <div>
+                    <label for="gula_darah" class="font-medium">Level Gula Darah:</label>
+                    <input type="number" name="gula_darah" id="gula_darah" placeholder="Masukkan level gula darah (80 - 300)" min="80" max="300" step="1" required class="w-full p-3 bg-gray-100 rounded-lg" />
+                </div>
+                
+                <button type="submit" class="w-full p-3 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition">PREDIKSI SEKARANG</button>
+            </form>
+        </main>
+        
+        <section class="mt-10 w-full max-w-2xl">
+            <div class="bg-white p-10 rounded-xl shadow-lg">
+                <h1 class="text-2xl font-bold text-center text-blue-600">Hasil Prediksi:</h1>
+                <h2 class="text-4xl font-bold text-center mt-4">{{ hasil_prediksi if hasil_prediksi else 'Hasil' }}</h2>
+                
+                {% if hasil_prediksi %}
+                <div class="mt-6 text-center">
+                    <p>Jenis Kelamin: {{ jenis_kelamin }}</p>
+                    <p>Umur: {{ umur }}</p>
+                    <p>Hipertensi: {{ hipertensi }}</p>
+                    <p>Penyakit Jantung: {{ jantung }}</p>
+                    <p>Riwayat Merokok: {{ merokok }}</p>
+                    <p>BMI: {{ bmi }}</p>
+                    <p>Level HbA1c: {{ hbA1c }}</p>
+                    <p>Level Gula Darah: {{ gula_darah }}</p>
+                </div>
+                {% endif %}
+            </div>
+        </section>
+    </body>
+</html>
