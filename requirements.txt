@@ -10,7 +10,7 @@ MarkupSafe
 numpy
 packaging
 scikit-learn
-scipy==1.7.3
+scipy
 threadpoolctl
 typing-extensions
 Werkzeug
